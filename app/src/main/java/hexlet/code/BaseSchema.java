@@ -11,8 +11,10 @@ public abstract class BaseSchema<T> {
 
     /**
      * Specifies required value.
+     * @return the BaseSchema itself
      */
-    public void required() {
+    public BaseSchema required() {
         this.isRequired = true;
+        return this;
     }
 }
