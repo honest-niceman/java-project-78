@@ -3,13 +3,12 @@ package hexlet.code;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class StringSchema {
-    private boolean isRequired;
+public final class StringSchema extends BaseSchema<String> {
     private int minLength;
     private final List<String> containsRules;
 
     public StringSchema() {
-        this.isRequired = false;
+        super();
         this.minLength = -1;
         this.containsRules = new ArrayList<>();
     }
@@ -18,12 +17,12 @@ public final class StringSchema {
         if (!isRequired && o == null) {
             return true;
         }
-        if (!(o instanceof String)) {
+        if (!(o instanceof String s)) {
             return false;
         }
-        boolean required = checkRequired((String) o);
-        boolean minLength = checkMinLength((String) o);
-        boolean checkContains = checkContainsRules((String) o);
+        boolean required = checkRequired(s);
+        boolean minLength = checkMinLength(s);
+        boolean checkContains = checkContainsRules(s);
         return required && minLength && checkContains;
     }
 
@@ -60,10 +59,6 @@ public final class StringSchema {
     public StringSchema contains(String s) {
         this.containsRules.add(s);
         return this;
-    }
-
-    public void required() {
-        this.isRequired = true;
     }
 
     public void minLength(int minLength) {

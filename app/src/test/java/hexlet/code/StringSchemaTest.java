@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SuppressWarnings("checkstyle:magicnumber")
 class StringSchemaTest {
 
     public static final int MIN_LENGTH_3 = 3;
