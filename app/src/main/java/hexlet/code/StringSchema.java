@@ -3,7 +3,7 @@ package hexlet.code;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringSchema {
+public final class StringSchema {
     private boolean isRequired;
     private int minLength;
     private final List<String> containsRules;

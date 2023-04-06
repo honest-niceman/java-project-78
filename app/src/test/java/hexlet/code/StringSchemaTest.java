@@ -2,9 +2,15 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SuppressWarnings("checkstyle:magicnumber")
 class StringSchemaTest {
+
+    public static final int MIN_LENGTH_3 = 3;
+    public static final int MIN_LENGTH_5 = 5;
+
     @Test
     public void testIsValidWithNull() {
         StringSchema schema = new StringSchema();
@@ -14,7 +20,7 @@ class StringSchemaTest {
     @Test
     public void testIsValidWithNonString() {
         StringSchema schema = new StringSchema();
-        assertFalse(schema.isValid(123));
+        assertFalse(schema.isValid(Integer.MAX_VALUE));
     }
 
     @Test
@@ -33,7 +39,7 @@ class StringSchemaTest {
     @Test
     public void testIsValidWithMinLength() {
         StringSchema schema = new StringSchema();
-        schema.minLength(3);
+        schema.minLength(MIN_LENGTH_3);
         assertFalse(schema.isValid("ab"));
         assertTrue(schema.isValid("abc"));
     }
@@ -52,7 +58,7 @@ class StringSchemaTest {
     public void testIsValidWithAllChecks() {
         StringSchema schema = new StringSchema();
         schema.required();
-        schema.minLength(5);
+        schema.minLength(MIN_LENGTH_5);
         schema.contains("world");
         assertFalse(schema.isValid(""));
         assertFalse(schema.isValid("hello"));
