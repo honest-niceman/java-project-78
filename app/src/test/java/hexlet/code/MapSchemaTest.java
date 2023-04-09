@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.MapSchema;
+import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -65,7 +66,9 @@ class MapSchemaTest {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
-        schemas.put("name", validator.string().required());
+        StringSchema stringSchema = validator.string();
+        stringSchema.required();
+        schemas.put("name", stringSchema);
         schemas.put("age", validator.number().positive());
         schema.shape(schemas);
 
@@ -80,7 +83,9 @@ class MapSchemaTest {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
-        schemas.put("name", validator.string().required());
+        StringSchema stringSchema = validator.string();
+        stringSchema.required();
+        schemas.put("name", stringSchema);
         schemas.put("age", validator.number().positive());
         schema.shape(schemas);
 
@@ -95,7 +100,9 @@ class MapSchemaTest {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
-        schemas.put("name", validator.string().required());
+        StringSchema stringSchema = validator.string();
+        stringSchema.required();
+        schemas.put("name", stringSchema);
         schemas.put("age", validator.number().positive());
         schema.shape(schemas);
 
