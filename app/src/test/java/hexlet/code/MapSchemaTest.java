@@ -65,7 +65,7 @@ class MapSchemaTest {
     public void testShapeValid() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         StringSchema stringSchema = validator.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
@@ -82,7 +82,7 @@ class MapSchemaTest {
     public void testShapeInvalidValue() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         StringSchema stringSchema = validator.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
@@ -99,7 +99,7 @@ class MapSchemaTest {
     public void testShapeNullValue() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         StringSchema stringSchema = validator.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
@@ -116,7 +116,7 @@ class MapSchemaTest {
     public void testShapeEmptyMap() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema> schemas = new HashMap<>();
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
         schema.shape(schemas);
         Assertions.assertTrue(schema.isValid(new HashMap<>()));
     }
