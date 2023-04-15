@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema {
     private int minLength;
     private final List<String> containsRules;
 
@@ -58,6 +58,11 @@ public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema contains(String s) {
         this.containsRules.add(s);
+        return this;
+    }
+
+    public StringSchema required() {
+        this.isRequired = true;
         return this;
     }
 

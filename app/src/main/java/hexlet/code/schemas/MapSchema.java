@@ -2,9 +2,9 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public final class MapSchema extends BaseSchema<Map> {
+public final class MapSchema extends BaseSchema {
     private int sizeof;
-    private Map<String, BaseSchema<?>> schemas;
+    private Map<String, BaseSchema> schemas;
 
     public MapSchema() {
         super();
@@ -33,7 +33,7 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     private boolean validateShape(Map map) {
-        for (Map.Entry<String, BaseSchema<?>> entry : schemas.entrySet()) {
+        for (Map.Entry<String, BaseSchema> entry : schemas.entrySet()) {
             String key = entry.getKey();
             BaseSchema schema = entry.getValue();
             Object value = map.get(key);
@@ -49,7 +49,12 @@ public final class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
-    public void shape(Map<String, BaseSchema<?>> schemas) {
+    public void shape(Map<String, BaseSchema> schemas) {
         this.schemas = schemas;
+    }
+
+    public MapSchema required() {
+        this.isRequired = true;
+        return this;
     }
 }

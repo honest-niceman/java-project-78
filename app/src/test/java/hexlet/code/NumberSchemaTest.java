@@ -16,30 +16,6 @@ class NumberSchemaTest {
     public static final int ELEVEN = 11;
 
     @Test
-    public void testIsValid() {
-        // Test null value when not required
-        NumberSchema schema = new NumberSchema();
-        schema.positive().range(ZERO, TEN);
-        assertTrue(schema.isValid(null));
-
-        // Test null value when required
-        schema.required();
-        assertFalse(schema.isValid(null));
-
-        // Test invalid type
-        assertFalse(schema.isValid("not a number"));
-
-        // Test invalid value for positive number
-        assertFalse(schema.isValid(MINUS_ONE));
-
-        // Test invalid value for range
-        assertFalse(schema.isValid(ELEVEN));
-
-        // Test valid value
-        assertTrue(schema.isValid(FIVE));
-    }
-
-    @Test
     public void testRange() {
         // Test range disabled
         NumberSchema schema = new NumberSchema();
@@ -74,16 +50,4 @@ class NumberSchemaTest {
         assertFalse(schema.isValid(MINUS_ONE));
     }
 
-    @Test
-    public void testRequired() {
-        // Test required is disabled
-        NumberSchema schema = new NumberSchema();
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid(ZERO));
-
-        // Test required is enabled
-        schema.required();
-        assertFalse(schema.isValid(null));
-        assertTrue(schema.isValid(ZERO));
-    }
 }

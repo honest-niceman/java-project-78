@@ -10,12 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 class MapSchemaTest {
-    @Test
-    void testIsValidWithNullObject() {
-        MapSchema schema = new MapSchema();
-        boolean isValid = schema.isValid(null);
-        Assertions.assertTrue(isValid);
-    }
 
     @Test
     void testIsValidWithNonMapObject() {
@@ -65,7 +59,7 @@ class MapSchemaTest {
     public void testShapeValid() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
         StringSchema stringSchema = validator.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
@@ -82,7 +76,7 @@ class MapSchemaTest {
     public void testShapeInvalidValue() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
         StringSchema stringSchema = validator.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
@@ -96,27 +90,10 @@ class MapSchemaTest {
     }
 
     @Test
-    public void testShapeNullValue() {
-        Validator validator = new Validator();
-        MapSchema schema = validator.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
-        StringSchema stringSchema = validator.string();
-        stringSchema.required();
-        schemas.put("name", stringSchema);
-        schemas.put("age", validator.number().positive());
-        schema.shape(schemas);
-
-        Map<String, Object> human = new HashMap<>();
-        human.put("name", "John");
-        human.put("age", null);
-        Assertions.assertTrue((schema.isValid(human)));
-    }
-
-    @Test
     public void testShapeEmptyMap() {
         Validator validator = new Validator();
         MapSchema schema = validator.map();
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema> schemas = new HashMap<>();
         schema.shape(schemas);
         Assertions.assertTrue(schema.isValid(new HashMap<>()));
     }

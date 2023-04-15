@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public final class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema {
     private boolean isPositive;
     private final Integer[] range;
     private boolean isRangeEnabled;
@@ -50,5 +50,10 @@ public final class NumberSchema extends BaseSchema<Integer> {
         this.isRangeEnabled = true;
         this.range[0] = a;
         this.range[1] = b;
+    }
+
+    public NumberSchema required() {
+        this.isRequired = true;
+        return this;
     }
 }

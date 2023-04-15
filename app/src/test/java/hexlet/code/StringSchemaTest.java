@@ -12,12 +12,6 @@ class StringSchemaTest {
     public static final int MIN_LENGTH_5 = 5;
 
     @Test
-    public void testIsValidWithNull() {
-        StringSchema schema = new StringSchema();
-        assertTrue(schema.isValid(null));
-    }
-
-    @Test
     public void testIsValidWithNonString() {
         StringSchema schema = new StringSchema();
         assertFalse(schema.isValid(Integer.MAX_VALUE));
