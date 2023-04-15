@@ -21,9 +21,9 @@ public final class StringSchema extends BaseSchema {
             return false;
         }
         boolean required = checkRequired(s);
-        boolean minLength = checkMinLength(s);
+        boolean minLengthCheck = checkMinLength(s);
         boolean checkContains = checkContainsRules(s);
-        return required && minLength && checkContains;
+        return required && minLengthCheck && checkContains;
     }
 
     private boolean checkContainsRules(String s) {
@@ -66,7 +66,7 @@ public final class StringSchema extends BaseSchema {
         return this;
     }
 
-    public void minLength(int minLength) {
-        this.minLength = minLength;
+    public void minLength(int newMinLength) {
+        this.minLength = newMinLength;
     }
 }

@@ -44,13 +44,13 @@ public final class MapSchema extends BaseSchema {
         return true;
     }
 
-    public MapSchema sizeof(int sizeof) {
-        this.sizeof = sizeof;
+    public MapSchema sizeof(int newSizeof) {
+        this.sizeof = newSizeof;
         return this;
     }
 
-    public void shape(Map<String, BaseSchema> schemas) {
-        this.schemas = schemas;
+    public void shape(Map<String, BaseSchema> newSchemas) {
+        this.schemas = newSchemas;
     }
 
     public MapSchema required() {

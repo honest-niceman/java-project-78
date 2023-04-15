@@ -21,9 +21,9 @@ public final class NumberSchema extends BaseSchema {
         }
         int i = (Integer) o;
         boolean required = checkRequired(i);
-        boolean isPositive = checkPositive(i);
-        boolean checkRange = checkRange(i);
-        return required && isPositive && checkRange;
+        boolean positiveCheck = checkPositive(i);
+        boolean rangeCheck = checkRange(i);
+        return required && positiveCheck && rangeCheck;
     }
 
     private boolean checkRange(Integer o) {
