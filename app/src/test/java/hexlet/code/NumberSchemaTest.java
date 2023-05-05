@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.schemas.NumberSchema;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,7 +19,8 @@ class NumberSchemaTest {
     @Test
     public void testRange() {
         // Test range disabled
-        NumberSchema schema = new NumberSchema();
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
         assertTrue(schema.isValid(ZERO));
         assertTrue(schema.isValid(TEN));
 
@@ -36,7 +38,8 @@ class NumberSchemaTest {
     @Test
     public void testPositive() {
         // Test positive disabled
-        NumberSchema schema = new NumberSchema();
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
         assertTrue(schema.isValid(ZERO));
         assertTrue(schema.isValid(-TEN));
 
@@ -48,6 +51,15 @@ class NumberSchemaTest {
         // Test invalid positive
         assertFalse(schema.isValid(ZERO));
         assertFalse(schema.isValid(MINUS_ONE));
+    }
+
+    @Test
+    public void nullTest() {
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
+        Assertions.assertTrue(schema.isValid(null));
+        schema.required();
+        Assertions.assertFalse(schema.isValid(null));
     }
 
 }

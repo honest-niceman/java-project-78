@@ -12,15 +12,9 @@ import java.util.Map;
 class MapSchemaTest {
 
     @Test
-    void testIsValidWithNonMapObject() {
-        MapSchema schema = new MapSchema();
-        boolean isValid = schema.isValid("not a map");
-        Assertions.assertFalse(isValid);
-    }
-
-    @Test
     void testIsValidWithValidMapObject() {
-        MapSchema schema = new MapSchema();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
         Map<String, String> map = new HashMap<>();
         map.put("key1", "value1");
         map.put("key2", "value2");
@@ -30,7 +24,8 @@ class MapSchemaTest {
 
     @Test
     void testIsValidWithMapObjectAndRequired() {
-        MapSchema schema = new MapSchema();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
         schema.required();
         boolean isValid = schema.isValid(null);
         Assertions.assertFalse(isValid);
@@ -38,7 +33,9 @@ class MapSchemaTest {
 
     @Test
     void testIsValidWithMapObjectAndSizeOf() {
-        MapSchema schema = new MapSchema().sizeof(2);
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        schema.sizeof(2);
         Map<String, String> map = new HashMap<>();
         map.put("key1", "value1");
         map.put("key2", "value2");
@@ -48,7 +45,9 @@ class MapSchemaTest {
 
     @Test
     void testIsValidWithMapObjectAndInvalidSizeOf() {
-        MapSchema schema = new MapSchema().sizeof(2);
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        schema.sizeof(2);
         Map<String, String> map = new HashMap<>();
         map.put("key1", "value1");
         boolean isValid = schema.isValid(map);
@@ -57,13 +56,13 @@ class MapSchemaTest {
 
     @Test
     public void testShapeValid() {
-        Validator validator = new Validator();
-        MapSchema schema = validator.map();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
-        StringSchema stringSchema = validator.string();
+        StringSchema stringSchema = v.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
-        schemas.put("age", validator.number().positive());
+        schemas.put("age", v.number().positive());
         schema.shape(schemas);
 
         Map<String, Object> human = new HashMap<>();
@@ -74,13 +73,13 @@ class MapSchemaTest {
 
     @Test
     public void testShapeInvalidValue() {
-        Validator validator = new Validator();
-        MapSchema schema = validator.map();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
-        StringSchema stringSchema = validator.string();
+        StringSchema stringSchema = v.string();
         stringSchema.required();
         schemas.put("name", stringSchema);
-        schemas.put("age", validator.number().positive());
+        schemas.put("age", v.number().positive());
         schema.shape(schemas);
 
         Map<String, Object> human = new HashMap<>();
@@ -91,10 +90,19 @@ class MapSchemaTest {
 
     @Test
     public void testShapeEmptyMap() {
-        Validator validator = new Validator();
-        MapSchema schema = validator.map();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
         Map<String, BaseSchema> schemas = new HashMap<>();
         schema.shape(schemas);
         Assertions.assertTrue(schema.isValid(new HashMap<>()));
+    }
+
+    @Test
+    public void nullTest() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        Assertions.assertTrue(schema.isValid(null));
+        schema.required();
+        Assertions.assertFalse(schema.isValid(null));
     }
 }

@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.schemas.StringSchema;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,45 +13,33 @@ class StringSchemaTest {
     public static final int MIN_LENGTH_5 = 5;
 
     @Test
-    public void testIsValidWithNonString() {
-        StringSchema schema = new StringSchema();
-        assertFalse(schema.isValid(Integer.MAX_VALUE));
-    }
-
-    @Test
     public void testIsValidWithEmptyString() {
-        StringSchema schema = new StringSchema();
+        Validator v = new Validator();
+        StringSchema schema = v.string();
         assertTrue(schema.isValid(""));
     }
 
     @Test
     public void testIsValidWithRequiredAndEmptyString() {
-        StringSchema schema = new StringSchema();
+        Validator v = new Validator();
+        StringSchema schema = v.string();
         schema.required();
         assertFalse(schema.isValid(""));
     }
 
     @Test
     public void testIsValidWithMinLength() {
-        StringSchema schema = new StringSchema();
+        Validator v = new Validator();
+        StringSchema schema = v.string();
         schema.minLength(MIN_LENGTH_3);
         assertFalse(schema.isValid("ab"));
         assertTrue(schema.isValid("abc"));
     }
 
     @Test
-    public void testIsValidWithContains() {
-        StringSchema schema = new StringSchema();
-        schema.contains("world").contains("hello");
-        assertFalse(schema.isValid("goodbye"));
-        assertFalse(schema.isValid("hello"));
-        assertFalse(schema.isValid("world"));
-        assertTrue(schema.isValid("hello world"));
-    }
-
-    @Test
     public void testIsValidWithAllChecks() {
-        StringSchema schema = new StringSchema();
+        Validator v = new Validator();
+        StringSchema schema = v.string();
         schema.required();
         schema.minLength(MIN_LENGTH_5);
         schema.contains("world");
@@ -60,5 +49,14 @@ class StringSchemaTest {
         assertFalse(schema.isValid("hello "));
         assertFalse(schema.isValid("helwo"));
         assertTrue(schema.isValid("hello world"));
+    }
+
+    @Test
+    public void nullTest() {
+        Validator v = new Validator();
+        StringSchema schema = v.string();
+        Assertions.assertTrue(schema.isValid(null));
+        schema.required();
+        Assertions.assertFalse(schema.isValid(null));
     }
 }

@@ -1,72 +1,23 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class StringSchema extends BaseSchema {
-    private int minLength;
-    private final List<String> containsRules;
-
     public StringSchema() {
-        super();
-        this.minLength = -1;
-        this.containsRules = new ArrayList<>();
-    }
-
-    public boolean isValid(Object o) {
-        if (!isRequired && o == null) {
-            return true;
-        }
-        if (!(o instanceof String s)) {
-            return false;
-        }
-        boolean required = checkRequired(s);
-        boolean minLengthCheck = checkMinLength(s);
-        boolean checkContains = checkContainsRules(s);
-        return required && minLengthCheck && checkContains;
-    }
-
-    private boolean checkContainsRules(String s) {
-        if (containsRules.isEmpty()) {
-            return true;
-        }
-        boolean result = true;
-        for (String containsRule : containsRules) {
-            if (!s.contains(containsRule)) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private boolean checkMinLength(String s) {
-        if (minLength != -1) {
-            return s.length() >= minLength;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean checkRequired(String s) {
-        if (isRequired) {
-            return !s.isEmpty();
-        } else {
-            return true;
-        }
-    }
-
-    public StringSchema contains(String s) {
-        this.containsRules.add(s);
-        return this;
+        addCheck(CheckName.REQUIRED, value -> value instanceof String && !((String) value).isEmpty());
     }
 
     public StringSchema required() {
-        this.isRequired = true;
+        required = true;
         return this;
     }
 
-    public void minLength(int newMinLength) {
-        this.minLength = newMinLength;
+    public StringSchema contains(String substring) {
+        addCheck(CheckName.CONTAINS, value -> ((String) value).contains(substring));
+        return this;
     }
+
+    public StringSchema minLength(int length) {
+        addCheck(CheckName.MIN_LENGTH, value -> ((String) value).length() >= length);
+        return this;
+    }
+
 }
