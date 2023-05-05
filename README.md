@@ -3,6 +3,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/8d08dbb3857c9359ab9a/maintainability)](https://codeclimate.com/github/honest-niceman/java-project-78/maintainability)
 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8d08dbb3857c9359ab9a/test_coverage)](https://codeclimate.com/github/honest-niceman/java-project-78/test_coverage)
+
 A data validator is a library with which you can check the correctness of any data.
 
 ## Example
